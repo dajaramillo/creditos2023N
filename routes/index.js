@@ -1,5 +1,6 @@
 const path = require('path');
 const router = require('express').Router();
+const User = require('../models/User');
 
 //Agregamos una ruta
 router.get('/', (req, res)=> {
@@ -11,26 +12,27 @@ router.get('/about', (req, res)=> {
   res.render('about');
 });
 
-//otra ruta
-router.get('/login', (req, res)=> {
-  res.send('Formulario de inicio de sesión');
-  //res.sendFile(path.join(__dirname+'/prueba.html'));
+//Ruta del inicio de sesión
+router.get('/signin', (req, res)=> {
+  res.render('users/signin');
 });
 
-router.get('/objeto/:id', (req, res)=> {
-    const id = req.params;
-    console.log(id);
-    res.json([
-      {
-        id,
-        nombre: "Daniel",
-        apellido: "Jaramillo"
-      },
-      { id,
-        nombre: "Jorge",
-        apellido: "Erazo"
-      }
-    ]);
+//Ruta del registro
+router.get('/signup', (req, res)=> {
+  res.render('users/signup');
+});
+
+router.post('/signup', async (req, res)=> {
+  //console.log(req.body);
+  const { name, email, password, password2, identificacion } = req.body;
+  const newUser = new User({name, email, password, identificacion});
+  //newUser.password = await newUser.encryptPassword(password);
+  //Consultamos email antes de guardar
+  const emailUser = await User.findOne({email: email});
+  console.log('Este es el nombre' + emailUser.name);
+  //console.log(emailUser);
+  //await newUser.save();
+  res.render("users/signup");
 });
 
 

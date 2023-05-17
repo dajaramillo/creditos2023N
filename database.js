@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose.set('strictQuery', true);
-mongoose.connect('mongodb+srv://djroot:dj@mongodb01.sphu5fk.mongodb.net/appCreditos', {
+mongoose.connect('mongodb+srv://djroot:dj123@mongodb01.sphu5fk.mongodb.net/appCreditos', {
     //useCreateIndex: true,
     //useNewUrlParser: true,
     //useFindAndModify: false

@@ -14,6 +14,11 @@ const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-acce
 const app = express();
 require('./database');
 
+//Static files Ruta de documentos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+
 //configuraciones
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views')); //asignamos la carpeta views dentro de src
@@ -25,6 +30,10 @@ app.engine('.hbs', exphbs.engine({
     extname: '.hbs' //extensión de los archivos
 }));
 app.set('view engine', '.hbs'); //motor de vistas en hbs
+
+app.use(express.urlencoded({extended: false})); //estraer datos de la url
+app.use(methodOverride('_method')); //metodos de petición
+
 
 
 // Routes
