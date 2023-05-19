@@ -9,9 +9,11 @@
   <link href="css/estilo.css" rel="stylesheet" />
 </head>
 <body>
-  {{>nav}}
-  {{{body}}}
-  {{>footer}}
+  {{>nav}} <!--Cabecera -->
+  {{>errors}} <!-- errors.hbs -->
+  {{>messages}} <!-- messages.hbs -->
+  {{{body}}} <!-- Todas las rutas -->
+  {{>footer}} <!-- Pie -->
 
   <!--Scripts Boostrap-->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

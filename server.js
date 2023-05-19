@@ -13,6 +13,7 @@ const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-acce
 //Inicializaciones
 const app = express();
 require('./database');
+require('./config/passport');
 
 //Static files Ruta de documentos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
@@ -34,11 +35,28 @@ app.set('view engine', '.hbs'); //motor de vistas en hbs
 app.use(express.urlencoded({extended: false})); //estraer datos de la url
 app.use(methodOverride('_method')); //metodos de petición
 
+//configuración para encriptar contraseñas
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+//Varible globales
+app.use((req, res, next)=>{
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
 
 
 // Routes
 app.use(require('./routes/index'));
-
+app.use(require('./routes/datos'));
 
 //escuchamos puerto
 app.listen(app.get('port'), ()=> {
