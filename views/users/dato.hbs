@@ -1,1 +1,15 @@
-<h1>Va ir la Dashboard</h1>
+<div class="row m-4">
+    {{#each datos}}
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    {{name}}
+                </h4>
+                <p>{{email}}</p>
+                <p>{{identificacion}}</p>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
